@@ -70,7 +70,7 @@ export const venueAddress = [
 export const events = [
   {
     id: 'reception', title: 'Reception (Dinner)', date: 'Monday, 7 December 2026', short: '7 DECEMBER 2026',
-    time: '8:00 PM', color: '#a84a62', venue: 0,
+    time: '8:00 PM', color: '#1b2a4a', venue: 0,
     desc: 'Celebrate the newly married couple at the reception dinner in Rohtak. Your gracious presence and blessings will make the evening even more special.',
     image: 'assets/cocktail-dinner-illustrated.webp',
   },

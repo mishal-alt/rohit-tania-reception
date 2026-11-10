@@ -21,10 +21,10 @@ export default function ScratchReveal() {
     ctx.setTransform(d, 0, 0, d, 0, 0)
     ctx.globalCompositeOperation = 'source-over'
     const g = ctx.createLinearGradient(0, 0, r.width, r.height)
-    g.addColorStop(0, '#b97a62'); g.addColorStop(0.45, '#f2cdb9'); g.addColorStop(1, '#c48b70')
+    g.addColorStop(0, '#aa7340'); g.addColorStop(0.45, '#eed2a0'); g.addColorStop(1, '#bb884d')
     ctx.fillStyle = g
     ctx.fillRect(0, 0, r.width, r.height)
-    ctx.fillStyle = '#8a3a52'
+    ctx.fillStyle = '#1b2a4a'
     ctx.textAlign = 'center'
     ctx.font = 'italic 29px Georgia'
     ctx.fillText('Scratch here', r.width / 2, r.height * 0.46)
