@@ -6,7 +6,7 @@ export function burstConfetti(x, y) {
   burst.className = 'confetti-burst'
   burst.style.left = x + 'px'
   burst.style.top = y + 'px'
-  const colors = ['#1f5a43', '#c59346', '#f0c87b', '#a9cdb5']
+  const colors = ['#a84a62', '#b5775a', '#f2cdb9', '#e3a9b5']
   for (let i = 0; i < 36; i++) {
     const bit = document.createElement('i')
     const angle = Math.random() * Math.PI * 2
