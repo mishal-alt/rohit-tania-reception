@@ -91,20 +91,13 @@
 .venue-grid{grid-template-columns:minmax(0,520px);justify-content:center}
 @media(max-width:600px){.event-grid{grid-template-columns:1fr}.venue-grid{grid-template-columns:1fr}}
 
-/* Midnight Navy & Gold: the two sections that sit on video are dark, the rest stay ivory */
-.opening{background:#0e1730}
-.opening-glass{background:rgba(10,18,44,.16);backdrop-filter:none}
-.entrance-copy,.formal-panel{--wine:#f3dfa8;--gold:#d4af5f;--line:#b8913f;color:#efe6cc}
-.entrance-copy{background:radial-gradient(ellipse,rgba(10,18,44,.84),rgba(10,18,44,.5) 62%,transparent 74%)}
-.entrance-copy h1{text-shadow:0 2px 18px #0a122e}
-.entrance-copy .eyebrow,.entrance-date{color:#efe2bd}
-.opening .primary{background:#d4af5f;border-color:#d4af5f;color:#0e1730}
-.opening .primary:hover{background:#f0d58f;border-color:#f0d58f}
-.transition-copy{background:rgba(10,18,44,.62);color:#f3dfa8}
-.skip-transition{background:#0e1730;color:#f3dfa8;border-color:#b8913f}
+/* Opening screen keeps the original red & cream palace; everything after it is Midnight Navy & Gold */
+.opening{--wine:#741e2c;--deep:#491620;--gold:#ae803b;--line:#ccb68a;--ink:#442a2b;--muted:#78615a}
+/* Invitation panel on the navy garden video is dark */
+.formal-panel{--wine:#f3dfa8;--gold:#d4af5f;--line:#b8913f;color:#efe6cc}
 .formal:before{background:linear-gradient(rgba(10,18,44,.22),rgba(10,18,44,.34))}
 .formal-panel{background:rgba(10,18,44,.62);border-color:rgba(212,175,95,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);box-shadow:0 12px 45px #050a1a66;text-shadow:none}
 .formal-panel .text-link{color:#f3dfa8}
 .floating-petal[data-tone="1"]{background:linear-gradient(135deg,#d6def2,#9db0dc)}
 .scratch-card .date-reveal{color:#fff1cf}
-.entrance-copy .couple-logo,.formal-panel .couple-logo{filter:brightness(1.45) saturate(1.15) drop-shadow(0 0 6px #d4af5f55)}
+.formal-panel .couple-logo{filter:brightness(1.45) saturate(1.15) drop-shadow(0 0 6px #d4af5f55)}
