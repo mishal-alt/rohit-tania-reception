@@ -1,45 +1,41 @@
-import { useEffect, useState } from 'react'
-import useMusic from './hooks/useMusic.js'
-import { media, couple } from './data/wedding.js'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import PetalCanvas from './components/PetalCanvas.jsx'
 import Opening from './components/Opening.jsx'
-import Header from './components/Header.jsx'
-import MobileMenu from './components/MobileMenu.jsx'
-import PetalLayer from './components/PetalLayer.jsx'
-import Invitation from './components/Invitation.jsx'
+import { FloralCorners, BorderFrame } from './components/FloralFrame.jsx'
+import MusicPill from './components/MusicPill.jsx'
+import Hero from './components/Hero.jsx'
+import SectionBackdrop from './components/SectionBackdrop.jsx'
 import ScratchReveal from './components/ScratchReveal.jsx'
-import Gallery from './components/Gallery.jsx'
-import Events from './components/Events.jsx'
-import Venues from './components/Venues.jsx'
-import Closing from './components/Closing.jsx'
+import Countdown from './components/Countdown.jsx'
+import Venue from './components/Venue.jsx'
+import Footer from './components/Footer.jsx'
 
 export default function App() {
-  const music = useMusic(media.music)
-  const [opened, setOpened] = useState(false)
-  const [menu, setMenu] = useState(false)
-
-  useEffect(() => { document.body.classList.toggle('locked', !opened) }, [opened])
-  useEffect(() => {
-    if (opened) document.getElementById('home')?.focus({ preventScroll: true })
-  }, [opened])
-
+  const [revealed, setRevealed] = useState(false)
   return (
-    <>
-      <PetalLayer />
-      <a className="skip-link" href="#home" onClick={() => setOpened(true)}>Skip to invitation</a>
-      <audio ref={music.audio} loop preload="auto" />
-      {!opened && <Opening onStart={music.start} onFinish={() => setOpened(true)} />}
-      <div id="site" inert={opened ? undefined : ''}>
-        <Header music={music} menuOpen={menu} onMenu={() => setMenu(true)} />
-        <main>
-          <Invitation opened={opened} />
-          <ScratchReveal />
-          <Gallery />
-          <Events />
-          <Venues />
-          <Closing />
-        </main>
-      </div>
-      <MobileMenu open={menu} onClose={() => setMenu(false)} />
-    </>
+    <div className="relative min-h-screen overflow-x-clip bg-background font-body text-foreground">
+      <PetalCanvas />
+      <AnimatePresence>{!revealed && <Opening key="opening" onRevealed={() => setRevealed(true)} />}</AnimatePresence>
+      {revealed && (
+        <>
+          <FloralCorners />
+          <BorderFrame />
+          <motion.main
+            initial={{ opacity: 0, scale: 0.97, filter: 'blur(14px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="relative z-10"
+          >
+            <Hero />
+            <SectionBackdrop><ScratchReveal /></SectionBackdrop>
+            <SectionBackdrop><Countdown /></SectionBackdrop>
+            <SectionBackdrop><Venue /></SectionBackdrop>
+            <SectionBackdrop><Footer /></SectionBackdrop>
+          </motion.main>
+        </>
+      )}
+      <MusicPill />
+    </div>
   )
 }

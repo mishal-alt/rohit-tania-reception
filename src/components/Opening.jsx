@@ -1,91 +1,91 @@
 import { useEffect, useRef, useState } from 'react'
-import { couple, wedding, media } from '../data/wedding.js'
-import { burstConfetti, reduced } from '../lib/confetti.js'
+import { motion } from 'framer-motion'
+import { couple, text, media } from '../data/reception.js'
+import { music } from '../lib/music.js'
+import { cannons, petalBurst } from '../lib/confetti.js'
 
-// Entrance screen: looping palace-door video, then "Open Invitation" plays the door-opening transition.
-export default function Opening({ onStart, onFinish }) {
-  const bg = useRef(null)
-  const tv = useRef(null)
-  const timer = useRef(null)
-  const done = useRef(false)
-  const busy = useRef(false)
-  const [transitioning, setTransitioning] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [gone, setGone] = useState(false)
+// Full-screen opening: butterflies video, "Open Me" pill, then the gate-opening video, then the site.
+export default function Opening({ onRevealed }) {
+  const [phase, setPhase] = useState('invite')
+  const main = useRef(null)
+  const blur = useRef(null)
 
   useEffect(() => {
-    const v = bg.current
-    v.muted = true
-    if (reduced()) v.pause()
-    else v.play().catch(() => {})
-    return () => clearTimeout(timer.current)
+    document.body.style.overflow = 'hidden'
+    music.ensure()
+    music.loadSavedVolume()
+    music.start()
+    return () => { document.body.style.overflow = '' }
   }, [])
 
-  const finish = () => {
-    if (done.current) return
-    done.current = true
-    clearTimeout(timer.current)
-    tv.current?.pause()
-    bg.current?.pause()
-    setOpen(true)
-    onFinish()
-    setTimeout(() => setGone(true), 850)
+  const open = () => {
+    cannons()
+    petalBurst(46)
+    music.start()
+    setPhase('video')
   }
 
-  // Preload the transition video up front so it starts instantly.
   useEffect(() => {
-    const v = tv.current
-    v.src = media.transitionVideo
-    v.load()
-  }, [])
+    if (phase !== 'video') return
+    const v = main.current
+    const b = blur.current
+    if (!v) return
+    ;(async () => {
+      try { await v.play() } catch { v.muted = true; try { await v.play() } catch { /* ignore */ } }
+      if (b) { b.muted = true; try { await b.play() } catch { /* ignore */ } }
+    })()
+  }, [phase])
 
-  const openInvitation = () => {
-    if (done.current || busy.current) return
-    busy.current = true
-    setTransitioning(true)
-    onStart()
-    burstConfetti(innerWidth / 2, innerHeight * 0.48)
-    bg.current.pause()
-    const v = tv.current
-    v.currentTime = 0
-    v.hidden = false
-    v.loop = false
-    v.muted = true
-    v.onended = finish
-    v.onerror = finish
-    const wait = () => { clearTimeout(timer.current); timer.current = setTimeout(finish, 45000) }
-    v.onwaiting = wait
-    v.onplaying = () => clearTimeout(timer.current)
-    wait()
-    v.play().catch(finish)
-  }
-
-  if (gone) return null
-  const cls = 'opening' + (transitioning ? ' transitioning' : '') + (open ? ' open' : '')
   return (
-    <section className={cls} id="opening" aria-label="Open reception invitation" inert={open ? '' : undefined}>
-      <video ref={bg} className="opening-bg" id="entranceBackground" autoPlay muted loop playsInline preload="auto" poster={media.entrancePoster} aria-hidden="true">
-        <source src={media.entranceVideo} type="video/mp4" />
-      </video>
-      <div className="opening-glass" />
-      <video ref={tv} id="transitionVideo" playsInline muted preload="auto" poster={media.transitionPoster} aria-hidden="true" hidden />
-      <div className="entrance-copy">
-        <img className="couple-logo" src={media.logo} alt={couple.monogramAlt} width="1284" height="1225" />
-        <p className="hindi" lang="hi">॥ स्वागत समारोह ॥</p>
-        <p className="eyebrow">TOGETHER WITH OUR FAMILIES</p>
-        <h1><span>{couple.groom}</span><i>&amp;</i><span>{couple.bride}</span></h1>
-        <div className="rule">✦</div>
-        <p className="entrance-date">{wedding.entranceDate}</p>
-        <button className="primary" id="openInvite" onClick={openInvitation} disabled={transitioning}>
-          Open Invitation <span aria-hidden="true">↗</span>
-        </button>
-        <p className="entrance-foot">With love, we invite you</p>
-      </div>
-      {transitioning && !open && <button id="skipTransition" className="skip-transition" onClick={finish} autoFocus>Tap to skip ↓</button>}
-      <div className="transition-copy" aria-hidden="true">
-        <span className="hindi" lang="hi">स्वागत समारोह</span>
-        <p>Our forever begins</p>
-      </div>
-    </section>
+    <motion.div
+      className="fixed inset-0 z-50 overflow-hidden bg-background"
+      exit={{ opacity: 0, scale: 1.06, filter: 'blur(18px)' }}
+      transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {phase === 'invite' ? (
+        <div className="relative h-full w-full">
+          <video src={media.openingVideo} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-background/55 backdrop-blur-[2px]" />
+          <video src={media.gateVideo} preload="auto" muted className="hidden" />
+          <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.9 }}
+              className="font-body text-[11px] uppercase tracking-[0.45em] text-deep"
+            >
+              {text.openingEyebrow}
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 1 }}
+              className="mt-5 font-display text-5xl text-deep sm:text-6xl"
+            >
+              {couple.groom} <span className="font-heading italic text-gold">&amp;</span> {couple.bride}
+            </motion.h1>
+            <div className="animate-float-y mt-12">
+              <motion.button
+                type="button" onClick={open}
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.96 }}
+                className="btn-shimmer glass-pill cursor-pointer rounded-full px-14 py-5 font-heading text-base uppercase tracking-[0.35em] text-deep transition-shadow duration-500 hover:shadow-[0_0_60px_-5px_var(--powder)]"
+              >
+                {text.openLabel}
+              </motion.button>
+            </div>
+            <motion.p
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}
+              className="mt-6 font-body text-[11px] tracking-[0.2em] text-muted-foreground"
+            >
+              {text.openHint}
+            </motion.p>
+          </div>
+        </div>
+      ) : (
+        <div className="relative h-full w-full cursor-pointer bg-ice" onClick={onRevealed} role="presentation">
+          <video ref={blur} src={media.gateVideo} muted playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl" />
+          <video ref={main} src={media.gateVideo} muted playsInline preload="auto" onEnded={onRevealed} className="relative h-full w-full object-contain" />
+          <p className="absolute bottom-6 right-6 z-10 font-body text-[11px] uppercase tracking-[0.25em] text-foreground/60">Tap to skip</p>
+        </div>
+      )}
+    </motion.div>
   )
 }

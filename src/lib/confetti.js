@@ -1,24 +1,26 @@
-const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+import confetti from 'canvas-confetti'
 
-export function burstConfetti(x, y) {
-  if (reduced()) return
-  const burst = document.createElement('div')
-  burst.className = 'confetti-burst'
-  burst.style.left = x + 'px'
-  burst.style.top = y + 'px'
-  const colors = ['#1b2a4a', '#c59346', '#f0c87b', '#b9c6e6']
-  for (let i = 0; i < 36; i++) {
-    const bit = document.createElement('i')
-    const angle = Math.random() * Math.PI * 2
-    const distance = 70 + Math.random() * 180
-    bit.style.setProperty('--x', Math.cos(angle) * distance + 'px')
-    bit.style.setProperty('--y', Math.sin(angle) * distance + 100 + 'px')
-    bit.style.setProperty('--r', -360 + Math.random() * 720 + 'deg')
-    bit.style.background = colors[i % 4]
-    burst.appendChild(bit)
-  }
-  document.body.append(burst)
-  setTimeout(() => burst.remove(), 1700)
+const base = {
+  colors: ['#ffffff', '#f4f8fd', '#e8f0fb', '#dbeafe', '#bfdbfe', '#c9d7ea', '#aebfd4'],
+  zIndex: 120,
+  disableForReducedMotion: true,
+  ticks: 220,
 }
 
-export { reduced }
+// Two side cannons for ~0.9s.
+export function cannons() {
+  const end = Date.now() + 900
+  ;(function frame() {
+    confetti({ ...base, particleCount: 6, angle: 60, spread: 62, startVelocity: 52, origin: { x: 0, y: 0.72 }, scalar: 0.9 })
+    confetti({ ...base, particleCount: 6, angle: 120, spread: 62, startVelocity: 52, origin: { x: 1, y: 0.72 }, scalar: 0.9 })
+    if (Date.now() < end) requestAnimationFrame(frame)
+  })()
+}
+
+export function burst() {
+  confetti({ ...base, particleCount: 90, spread: 110, startVelocity: 34, origin: { y: 0.6 }, shapes: ['star', 'circle'], scalar: 0.75 })
+}
+
+export function petalBurst(count) {
+  window.dispatchEvent(new CustomEvent('petal-burst', { detail: { count } }))
+}
