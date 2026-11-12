@@ -10,13 +10,18 @@ export default function Venue() {
   return (
     <section className="relative px-6 py-24">
       <SectionHeading eyebrow={text.venueEyebrow} title={text.venueTitle} />
-      <motion.div
-        initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={inView}
-        transition={{ duration: 0.9, ease }}
-        className="frosted-card ornamental-border mx-auto mb-8 max-w-5xl overflow-hidden rounded-3xl"
-      >
-        <img src={venue.photo} alt={venue.photoAlt} loading="lazy" className="aspect-[4/3] w-full object-cover object-left sm:aspect-[2/1] sm:object-center" />
-      </motion.div>
+      <div className="mx-auto mb-8 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-6">
+        {venue.photos.map((ph, i) => (
+          <motion.div
+            key={ph.src}
+            initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={inView}
+            transition={{ duration: 0.9, ease, delay: i * 0.12 }} whileHover={{ scale: 1.02 }}
+            className="frosted-card ornamental-border overflow-hidden rounded-3xl"
+          >
+            <img src={ph.src} alt={ph.alt} loading="lazy" className={`aspect-[16/10] w-full object-cover sm:aspect-[4/5] ${ph.pos}`} />
+          </motion.div>
+        ))}
+      </div>
       <div className="mx-auto grid max-w-5xl items-stretch gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -32 }} whileInView={{ opacity: 1, x: 0 }} viewport={inView}
