@@ -25,7 +25,6 @@ export const text = {
   openingEyebrow: 'You are cordially invited to the wedding reception of',
   openLabel: 'Open Me',
   openHint: 'Tap to open your invitation',
-  heroEyebrow: 'we are celebrating',
   heroLine1: 'Together with their families',
   heroLine2: 'Request the pleasure of your presence as they celebrate their Wedding Reception.',
   heroHosts: [
