@@ -123,8 +123,7 @@ export default function ScratchReveal() {
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/50 bg-secondary/90 sm:h-10 sm:w-10" aria-label="Champagne glass" role="img">
                 <Wine className="h-3.5 w-3.5 text-gold sm:h-4 sm:w-4" />
               </span>
-              <h3 className="mt-1 font-script text-[clamp(2.1rem,9.5vw,3.4rem)] leading-[1] text-deep">{event.title}</h3>
-              <p className="mt-1 font-display text-[clamp(1.15rem,5vw,1.6rem)] font-semibold italic leading-snug text-foreground">{event.date}</p>
+              <p className="mt-3 font-display text-[clamp(1.15rem,5vw,1.6rem)] font-semibold italic leading-snug text-foreground">{event.date}</p>
               <p className="font-body text-[clamp(0.65rem,2.8vw,0.8rem)] uppercase tracking-[0.3em] text-primary">{event.time}</p>
             </div>
             <motion.canvas

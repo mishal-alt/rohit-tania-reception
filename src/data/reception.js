@@ -15,7 +15,6 @@ export const couple = {
 export const event = {
   // Countdown target: reception, 7 Dec 2026, 8:00 PM IST
   target: '2026-12-07T20:00:00+05:30',
-  title: 'Reception Dinner',
   date: 'Monday, 7 December 2026',
   time: '8:00 PM Onwards',
   footerDate: '07 · 12 · 2026 — Rohtak',
