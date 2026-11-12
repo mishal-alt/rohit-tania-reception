@@ -37,7 +37,14 @@ export default function Hero() {
         viewport={{ once: true, margin: '-10%' }} transition={{ duration: 1, ease }}
         className="frosted-card ornamental-border relative z-10 w-full max-w-3xl rounded-[2rem] px-6 py-14 text-center sm:px-12"
       >
-        <h1 className="font-display leading-tight">
+        <motion.p
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="font-body text-[11px] uppercase tracking-[0.45em] text-primary"
+        >
+          {text.heroEyebrow}
+        </motion.p>
+        <h1 className="mt-6 font-display leading-tight">
           <Letters text={couple.groom} delay={0.35} className="text-shimmer text-6xl sm:text-7xl lg:text-8xl" />
           <motion.span
             initial={{ opacity: 0, scale: 0.5 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
