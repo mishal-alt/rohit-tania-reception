@@ -10,7 +10,7 @@ export default function Venue() {
   return (
     <section className="relative px-6 py-24">
       <SectionHeading eyebrow={text.venueEyebrow} title={text.venueTitle} />
-      <div className="mx-auto mb-8 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-6">
+      <div className="mx-auto mb-8 grid max-w-5xl gap-4 sm:grid-cols-2 sm:gap-6">
         {venue.photos.map((ph, i) => (
           <motion.div
             key={ph.src}
@@ -18,7 +18,7 @@ export default function Venue() {
             transition={{ duration: 0.9, ease, delay: i * 0.12 }} whileHover={{ scale: 1.02 }}
             className="frosted-card ornamental-border overflow-hidden rounded-3xl"
           >
-            <img src={ph.src} alt={ph.alt} loading="lazy" className={`aspect-[16/10] w-full object-cover sm:aspect-[4/5] ${ph.pos}`} />
+            <img src={ph.src} alt={ph.alt} loading="lazy" className={`aspect-[16/10] w-full object-cover ${ph.pos}`} />
           </motion.div>
         ))}
       </div>

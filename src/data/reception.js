@@ -48,8 +48,7 @@ export const venue = {
     'An elegant evening awaits — join us for the reception dinner as we celebrate the newly married couple with family and friends.',
   photos: [
     { src: 'assets/venue-facade.jpg', alt: 'The Page hotel and banquet entrance in Rohtak, lit up at night', pos: 'object-center' },
-    { src: 'assets/venue-terrace.jpg', alt: 'The open-air rooftop terrace at The Page, Rohtak, with lounge seating', pos: 'object-center' },
-    { src: 'assets/venue-lobby.jpg', alt: 'The elegant lobby of The Page in Rohtak', pos: 'object-center' },
+    { src: 'assets/venue-hall.jpg', alt: 'The banquet hall at The Page, Rohtak, under a ceiling of fairy lights and crystal chandeliers', pos: 'object-center' },
   ],
   directions: `https://www.google.com/maps/dir/?api=1&destination=${q('The Page, Opp. Tilyar Lake, Delhi Road, Rohtak, Haryana')}`,
   mapEmbed: `https://www.google.com/maps?q=${q('The Page, Opp. Tilyar Lake, Delhi Road, Rohtak, Haryana')}&output=embed`,
