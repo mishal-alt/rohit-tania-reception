@@ -20,6 +20,7 @@
   --radius-lg: var(--radius);
   --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --font-heading: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-script: "Great Vibes", "Playfair Display", cursive;
   --font-body: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
   --animate-sway: sway 7s ease-in-out infinite alternate;
   --animate-float-y: float-y 5.5s ease-in-out infinite;

@@ -46,6 +46,7 @@ export default function Hero() {
         </motion.p>
         <h1 className="mt-6 font-display leading-tight">
           <Letters text={couple.groom} delay={0.35} className="text-shimmer text-6xl sm:text-7xl lg:text-8xl" />
+          <motion.span {...fade(0.8)} className="mt-2 block font-body text-xs font-normal leading-relaxed text-muted-foreground">{text.groomParents}</motion.span>
           <motion.span
             initial={{ opacity: 0, scale: 0.5 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
             transition={{ delay: 0.9, duration: 0.8, ease }}
@@ -54,6 +55,7 @@ export default function Hero() {
             &amp;
           </motion.span>
           <Letters text={couple.bride} delay={1.05} className="text-shimmer text-6xl sm:text-7xl lg:text-8xl" />
+          <motion.span {...fade(1.5)} className="mt-2 block font-body text-xs font-normal leading-relaxed text-muted-foreground">{text.brideParents}</motion.span>
         </h1>
         <motion.img
           src={media.divider} alt="" width="1920" height="640" loading="lazy"
@@ -64,11 +66,6 @@ export default function Hero() {
         <motion.p {...fade(1.7)} className="mt-6 font-heading text-lg italic text-foreground/80">{text.heroLine1}</motion.p>
         <motion.p {...fade(1.9)} className="mx-auto mt-4 max-w-md font-body text-sm leading-relaxed text-muted-foreground">
           {text.heroLine2}
-        </motion.p>
-        <motion.p {...fade(2.0)} className="mx-auto mt-4 max-w-md font-body text-xs leading-relaxed text-muted-foreground/90">
-          {text.heroHosts[0]}
-          <br />
-          {text.heroHosts[1]}
         </motion.p>
         <motion.p {...fade(2.1)} className="mt-8 font-body text-[11px] uppercase tracking-[0.35em] text-primary">
           {text.heroScratch}

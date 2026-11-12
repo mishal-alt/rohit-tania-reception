@@ -50,7 +50,7 @@ export default function Opening({ onRevealed }) {
           <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
             <motion.p
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.9 }}
-              className="font-body text-[11px] uppercase tracking-[0.45em] text-deep"
+              className="max-w-md font-body text-sm font-medium uppercase leading-relaxed tracking-[0.3em] text-deep sm:max-w-2xl sm:text-lg"
             >
               {text.openingEyebrow}
             </motion.p>

@@ -10,40 +10,42 @@ export default function Venue() {
   return (
     <section className="relative px-6 py-24">
       <SectionHeading eyebrow={text.venueEyebrow} title={text.venueTitle} />
+      <motion.div
+        initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={inView}
+        transition={{ duration: 0.9, ease }}
+        className="frosted-card ornamental-border mx-auto mb-8 max-w-5xl overflow-hidden rounded-3xl"
+      >
+        <img src={venue.photo} alt={venue.photoAlt} loading="lazy" className="aspect-[4/3] w-full object-cover object-left sm:aspect-[2/1] sm:object-center" />
+      </motion.div>
       <div className="mx-auto grid max-w-5xl items-stretch gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -32 }} whileInView={{ opacity: 1, x: 0 }} viewport={inView}
-          transition={{ duration: 0.9, ease }} whileHover={{ scale: 1.02 }}
-          className="frosted-card ornamental-border overflow-hidden rounded-3xl"
+          transition={{ duration: 0.9, ease }} className="frosted-card ornamental-border flex flex-col justify-center rounded-3xl p-8"
         >
-          <img src={venue.photo} alt={venue.photoAlt} loading="lazy" className="h-full w-full object-cover" />
+          <div className="flex items-start gap-3">
+            <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-deep">
+              <MapPin className="h-4 w-4" />
+            </span>
+            <div>
+              <h3 className="font-display text-3xl text-deep">{venue.name}</h3>
+              <p className="mt-1 font-body text-sm text-muted-foreground">{venue.address}</p>
+            </div>
+          </div>
+          <p className="mt-5 font-body text-sm leading-relaxed text-muted-foreground">{venue.blurb}</p>
+          <a href={venue.directions} target="_blank" rel="noreferrer" className="btn-primary-lux mt-7 self-start">
+            <Navigation className="h-4 w-4" />
+            Get Directions
+          </a>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: 32 }} whileInView={{ opacity: 1, x: 0 }} viewport={inView}
-          transition={{ duration: 0.9, ease }} className="flex flex-col gap-6"
+          transition={{ duration: 0.9, ease }}
+          className="ornamental-border min-h-[300px] overflow-hidden rounded-3xl"
         >
-          <div className="frosted-card ornamental-border rounded-3xl p-8">
-            <div className="flex items-start gap-3">
-              <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-deep">
-                <MapPin className="h-4 w-4" />
-              </span>
-              <div>
-                <h3 className="font-display text-3xl text-deep">{venue.name}</h3>
-                <p className="mt-1 font-body text-sm text-muted-foreground">{venue.address}</p>
-              </div>
-            </div>
-            <p className="mt-5 font-body text-sm leading-relaxed text-muted-foreground">{venue.blurb}</p>
-            <a href={venue.directions} target="_blank" rel="noreferrer" className="btn-primary-lux mt-7">
-              <Navigation className="h-4 w-4" />
-              Get Directions
-            </a>
-          </div>
-          <div className="ornamental-border min-h-[260px] grow overflow-hidden rounded-3xl">
-            <iframe
-              title={venue.mapTitle} src={venue.mapEmbed} loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade" className="h-full min-h-[260px] w-full border-0" allowFullScreen
-            />
-          </div>
+          <iframe
+            title={venue.mapTitle} src={venue.mapEmbed} loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade" className="h-full min-h-[300px] w-full border-0" allowFullScreen
+          />
         </motion.div>
       </div>
     </section>
